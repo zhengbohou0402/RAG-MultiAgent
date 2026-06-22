@@ -25,3 +25,6 @@ data/ukm_ftsm/semantic_cache.json
 data/ukm_ftsm/student_accounts.json
 query.json
 *.log
+output/
+.DS_Store
+Thumbs.db
