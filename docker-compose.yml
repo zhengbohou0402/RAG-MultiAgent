@@ -1,0 +1,70 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: smartcloud-mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-smartcloud}
+      MYSQL_USER: ${MYSQL_USER:-smartcloud}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-smartcloud123}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root123456}
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - smartcloud_mysql:/var/lib/mysql
+    command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-root123456}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  mongo:
+    image: mongo:7
+    container_name: smartcloud-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-smartcloud}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-smartcloud123}
+    ports:
+      - "27017:27017"
+    volumes:
+      - smartcloud_mongo:/data/db
+
+  redis:
+    image: redis:7-alpine
+    container_name: smartcloud-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - smartcloud_redis:/data
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    container_name: smartcloud-prometheus
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+
+  grafana:
+    image: grafana/grafana:11.3.1
+    container_name: smartcloud-grafana
+    ports:
+      - "${GRAFANA_PORT:-3001}:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: smartcloud
+    volumes:
+      - smartcloud_grafana:/var/lib/grafana
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+
+volumes:
+  smartcloud_mysql:
+  smartcloud_mongo:
+  smartcloud_redis:
+  smartcloud_grafana:

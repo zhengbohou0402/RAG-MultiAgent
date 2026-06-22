@@ -1,0 +1,37 @@
+SmartCloud ICP Filing and Domain Compliance Checklist
+
+Document type: official compliance guide
+Source type: official
+Trust label: SmartCloud official material
+
+Applicable scenario
+- A customer wants to host a website in mainland China using SmartCloud ECS, SLB, OSS static hosting, or CDN.
+- The customer owns a domain name and needs website filing before public access.
+
+Required materials
+- Company business license or personal identity document.
+- Domain ownership proof.
+- Website administrator contact information.
+- SmartCloud server access proof.
+- Website name, website service category, and emergency contact.
+
+Process
+1. Buy or bind a mainland China SmartCloud server.
+2. Prepare domain and real-name verification.
+3. Open SmartCloud ICP Filing Center.
+4. Fill in entity information, website information, and server information.
+5. Upload required materials.
+6. Submit for SmartCloud preliminary review.
+7. Complete authority SMS verification.
+8. Wait for authority approval.
+
+Common rejection reasons
+- Domain owner does not match the filing entity.
+- Website name contains restricted terms.
+- Contact phone is unreachable.
+- Uploaded license image is blurred.
+- Server access proof does not match the selected region.
+
+Agent behavior
+- The ICP Service Agent should give a checklist and explain the next action.
+- It should not promise approval time. It should say that final approval depends on the local authority.

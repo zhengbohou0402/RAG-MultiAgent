@@ -1,0 +1,23 @@
+SmartCloud Service Knowledge Index
+
+Document type: generated summary
+Source type: generated_summary
+Trust label: SmartCloud generated summary
+
+Core topics
+- Product consultation: ECS, GPU AI Computing, MySQL, MongoDB, Redis, OSS, VPC, SLB, CDN.
+- Technical support: resource failure, security group, network connectivity, database backup, performance metrics.
+- Finance: bills, invoices, orders, renewal, refund, unpaid amount, monthly spend.
+- ICP filing: domain compliance, entity materials, server access proof, rejection reasons.
+- Marketing: product share package, poster, H5 landing page, activity copy.
+- Observability: Prometheus, Grafana, agent trace, RAG latency, cache hit rate, MCP and A2A metrics.
+
+Routing hints
+- Greeting, thanks, and simple casual chat: Direct Answer Agent.
+- Product or support knowledge: Product Tech Agent or Knowledge Research Agent.
+- Billing, invoice, refund, renewal, and cost: Finance Order Agent.
+- ICP filing and domain compliance: ICP Service Agent.
+- Promotion, poster, H5, share package: Ops Marketing Agent.
+- Technical selection, architecture comparison, industry report: Deep Research Agent.
+
+This demo knowledge base is fictional and designed for local interview demonstration. It does not contain personal contacts or real customer data.

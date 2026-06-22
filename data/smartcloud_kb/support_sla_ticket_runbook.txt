@@ -1,0 +1,31 @@
+SmartCloud Support Ticket SLA and Troubleshooting Runbook
+
+Document type: support playbook
+Source type: playbook
+Trust label: SmartCloud support playbook
+
+Ticket severity
+- P1 Critical: production service unavailable, major data risk, or security incident. First response target: 15 minutes.
+- P2 High: important service degraded or partial customer impact. First response target: 30 minutes.
+- P3 Normal: configuration question, ordinary failure, or non-blocking issue. First response target: 4 business hours.
+- P4 Low: consultation, document request, or optimization suggestion. First response target: 1 business day.
+
+Troubleshooting order
+1. Confirm affected product, region, tenant, resource ID, and time range.
+2. Check SmartCloud status page and recent maintenance events.
+3. Check customer resource metrics: CPU, memory, disk, network, connection count, error rate.
+4. Check configuration changes: security group, route table, DNS, certificate, scaling policy.
+5. If the issue is reproducible, collect logs and create an escalation package.
+
+Escalation package
+- Tenant ID, user ID, resource ID, region.
+- Error screenshot or request ID.
+- Start time and duration.
+- Metrics snapshot and log excerpt.
+- Business impact description.
+
+Agent behavior
+- Product Tech Agent handles product usage and troubleshooting.
+- Deep Research Agent handles long technical comparison and architecture selection.
+- Finance Order Agent handles billing-related tickets.
+- The Orchestrator should keep the user informed of selected agent and route reason in trace.

@@ -1,0 +1,33 @@
+SmartCloud Billing, Orders, Renewal, Refund, and Invoice Policy
+
+Document type: official billing policy
+Source type: official
+Trust label: SmartCloud official material
+
+Billing concepts
+- Order: the purchase or renewal transaction for a cloud product.
+- Invoice: the tax document generated after payment is completed.
+- Unpaid amount: the total amount waiting for payment in the current tenant.
+- Monthly spend: the accumulated spending of the tenant in the current billing cycle.
+
+Renewal rules
+- Subscription ECS, database, and GPU products can be renewed manually or automatically.
+- Auto-renewal should be enabled at least 3 days before expiration to avoid service interruption.
+- If auto-renewal fails because of insufficient balance, SmartCloud creates a billing alert and a support case.
+
+Refund rules
+- Unused subscription resources can request a proportional refund when no abuse or policy violation exists.
+- Pay-as-you-go resources are billed by usage and usually cannot be refunded after usage is generated.
+- Refund review SLA is 1 business day for standard customers and 4 business hours for enterprise customers.
+
+Invoice workflow
+1. Open Billing Center.
+2. Select paid orders.
+3. Confirm invoice title and tax number.
+4. Choose electronic invoice or paper invoice.
+5. Submit the request and wait for finance review.
+
+Finance Order Agent behavior
+- When the user asks for bills, invoices, renewal, refund, unpaid amount, or cost optimization, route to Finance Order Agent.
+- The agent should query tenant-level billing data from MySQL when available.
+- The answer should include current unpaid amount, monthly spend, invoice status, and next renewal risk.

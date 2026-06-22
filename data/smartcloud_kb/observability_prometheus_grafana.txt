@@ -1,0 +1,28 @@
+SmartCloud Observability Guide - Prometheus, Grafana, Agent Trace, and Cache Metrics
+
+Document type: official observability guide
+Source type: official
+Trust label: SmartCloud official material
+
+System metrics
+- Spring Boot exposes JVM, HTTP, thread, memory, and custom business metrics through /actuator/prometheus.
+- Prometheus scrapes the backend every 15 seconds in the local Docker Compose demo.
+- Grafana provides dashboards for API latency, agent routing, RAG retrieval latency, cache hit rate, MCP calls, and A2A calls.
+
+AI business metrics
+- agent_route_total: counts selected route such as DIRECT, KNOWLEDGE_RAG, PROCEDURE_RAG, WEB_REFRESH, FINANCE, MARKETING, and RESEARCH.
+- rag_latency_seconds: tracks retrieval and generation latency.
+- semantic_cache_hit_total: tracks Redis L1 cache hits.
+- mcp_tool_call_total: tracks MCP tool calls such as billing.query and marketing.generate_package.
+- a2a_message_total: tracks Agent2Agent message calls.
+
+Trace model
+- MongoDB stores conversation messages, supervisor decisions, selected agent, route reason, tool calls, sources, and estimated latency.
+- The local Trace page is a demo replacement for LangSmith or Phoenix. It is designed for interviews and local screenshots.
+
+Interview explanation
+- LangGraph4j controls the agent workflow.
+- WebFlux SSE streams tokens to the frontend.
+- Redis accelerates repeated questions.
+- MySQL keeps business indexes and billing data.
+- MongoDB keeps long conversation and trace documents.

@@ -1,0 +1,113 @@
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: 8000
+
+spring:
+  application:
+    name: smartcloud-serviceops
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.r2dbc.R2dbcAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.mongo.MongoReactiveDataAutoConfiguration
+      - org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+  webflux:
+    multipart:
+      max-in-memory-size: 1MB
+      max-disk-usage-per-part: 50MB
+      max-parts: 20
+  r2dbc:
+    url: ${MYSQL_R2DBC_URL:r2dbc:mysql://localhost:3306/smartcloud}
+    username: ${MYSQL_USER:smartcloud}
+    password: ${MYSQL_PASSWORD:smartcloud123}
+  datasource:
+    url: ${MYSQL_JDBC_URL:jdbc:mysql://localhost:3306/smartcloud?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${MYSQL_USER:smartcloud}
+    password: ${MYSQL_PASSWORD:smartcloud123}
+  flyway:
+    enabled: ${SMARTCLOUD_SQL_ENABLED:false}
+    locations: classpath:db/migration
+  data:
+    mongodb:
+      uri: ${MONGO_URI:mongodb://smartcloud:smartcloud123@localhost:27017/smartcloud?authSource=admin}
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  metrics:
+    tags:
+      application: smartcloud-serviceops
+
+app:
+  project-root: ${PROJECT_ROOT:}
+  dashscope:
+    api-key: ${DASHSCOPE_API_KEY:}
+    base-url: ${DASHSCOPE_BASE_URL:https://dashscope.aliyuncs.com/api/v1}
+    chat-model: ${CHAT_MODEL_NAME:qwen-turbo}
+    embedding-model: ${EMBEDDING_MODEL_NAME:text-embedding-v3}
+    image-model: qwen-vl-plus
+    rerank-model: gte-rerank-v2
+  qdrant:
+    host: ${QDRANT_HOST:localhost}
+    port: ${QDRANT_PORT:6334}
+    use-tls: ${QDRANT_USE_TLS:false}
+    api-key: ${QDRANT_API_KEY:}
+    collection-name: smartcloud_serviceops
+    persist-directory: qdrant_db_smartcloud
+    sparse-model: Qdrant/bm25
+    k: 6
+    hybrid-search-limit: 20
+    chunk-size: 800
+    chunk-overlap: 120
+    data-path: data/smartcloud_kb
+    auto-start-local: ${QDRANT_AUTO_START:true}
+    local-executable: ${QDRANT_LOCAL_EXECUTABLE:qdrant_local/qdrant.exe}
+    local-storage-path: ${QDRANT_LOCAL_STORAGE:qdrant_local/storage}
+    lexical-index-path: ${LEXICAL_INDEX_PATH:lucene_local}
+  cache:
+    threshold: 0.92
+    ttl-days: 7
+    max-entries: 500
+    redis-enabled: ${SMARTCLOUD_REDIS_ENABLED:false}
+  conversation:
+    max-conversations: 200
+    max-messages: 40
+    max-history-turns: 5
+    mysql-enabled: ${SMARTCLOUD_SQL_ENABLED:false}
+    mongo-enabled: ${SMARTCLOUD_MONGO_ENABLED:false}
+  smartcloud:
+    default-tenant-id: ${SMARTCLOUD_DEFAULT_TENANT:tenant-demo}
+    default-user-id: ${SMARTCLOUD_DEFAULT_USER:demo-admin}
+    jwt-secret: ${SMARTCLOUD_JWT_SECRET:smartcloud-local-demo-secret-change-me-please}
+    token-ttl-minutes: ${SMARTCLOUD_TOKEN_TTL_MINUTES:720}
+    mysql-enabled: ${SMARTCLOUD_SQL_ENABLED:false}
+    mongo-enabled: ${SMARTCLOUD_MONGO_ENABLED:false}
+    redis-enabled: ${SMARTCLOUD_REDIS_ENABLED:false}
+    mcp-endpoint: ${SMARTCLOUD_MCP_ENDPOINT:http://127.0.0.1:8000/mcp}
+    a2a-endpoint: ${SMARTCLOUD_A2A_ENDPOINT:http://127.0.0.1:8000}
+    marketing-assets-path: ${SMARTCLOUD_MARKETING_ASSETS_PATH:data/smartcloud/assets}
+  crawler:
+    enabled: ${CRAWLER_ENABLED:false}
+    interval-hours: ${CRAWLER_INTERVAL_HOURS:168}
+    max-pages: ${CRAWLER_MAX_PAGES:80}
+    browser-enabled: ${CRAWLER_BROWSER_ENABLED:true}
+    browser-auto-download: ${CRAWLER_BROWSER_AUTO_DOWNLOAD:false}
+    static-fallback: ${CRAWLER_STATIC_FALLBACK:true}
+    static-tls-fallback: ${CRAWLER_STATIC_TLS_FALLBACK:true}
+    headless: ${CRAWLER_HEADLESS:true}
+    page-timeout-seconds: ${CRAWLER_PAGE_TIMEOUT_SECONDS:40}
+    page-delay-millis: ${CRAWLER_PAGE_DELAY_MILLIS:800}
+    min-content-chars: ${CRAWLER_MIN_CONTENT_CHARS:200}
+    max-queued-links: ${CRAWLER_MAX_QUEUED_LINKS:2000}
+    output-filename: ${CRAWLER_OUTPUT_FILENAME:smartcloud_official_website.txt}

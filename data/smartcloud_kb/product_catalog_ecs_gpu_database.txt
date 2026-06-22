@@ -1,0 +1,34 @@
+SmartCloud Product Catalog - Compute, AI GPU, Database, Storage, and Networking
+
+Document type: official product catalog
+Source type: official
+Trust label: SmartCloud official material
+
+ECS Standard
+- Scenario: web applications, backend APIs, Java Spring Boot services, internal admin systems.
+- Recommended baseline: 2 vCPU / 4 GB RAM for small production services, 4 vCPU / 8 GB RAM for standard business systems.
+- Required setup: VPC, security group, system disk, optional data disk, public IP or load balancer.
+- Security group rule: open only required ports. For public web services, expose 80 and 443 through SLB. Do not expose MySQL, Redis, MongoDB, or SSH to the internet unless a bastion host is used.
+- High availability: deploy at least two ECS instances behind SmartCloud SLB when the service has production traffic.
+
+GPU AI Computing
+- Scenario: LLM inference, vector embedding jobs, image generation, speech recognition, and model fine-tuning demos.
+- Recommended baseline: one 24 GB GPU for small LLM inference or embedding batch jobs; multi-GPU nodes for model training.
+- Integration pattern: ECS application -> model gateway -> GPU inference service -> observability metrics.
+- Cost advice: use scheduled start and stop for development GPU instances; use reserved GPU packages only for stable long-running inference.
+
+Managed Database
+- SmartCloud MySQL is recommended for transactional data such as users, tenants, orders, invoices, work order indexes, and billing summaries.
+- SmartCloud MongoDB is recommended for semi-structured conversation messages, agent traces, tool calls, and generated research reports.
+- SmartCloud Redis is recommended for L1 FAQ cache, login sessions, token rate limits, and hot configuration.
+- Backup policy: enable daily backup and keep at least 7 restore points for production tenants.
+
+Object Storage
+- SmartCloud OSS stores uploaded knowledge files, marketing posters, H5 landing pages, invoice attachments, and exported reports.
+- Use private buckets for customer data. Public marketing assets must use signed URLs or a dedicated public-read bucket with CDN protection.
+- Enable lifecycle rules for temporary generated files older than 30 days.
+
+Networking
+- VPC isolates tenant resources. Public services enter through SLB or API Gateway.
+- Security group templates: web-public, app-private, database-private, observability-internal.
+- For interview demo architecture, place Spring Boot, Redis, MySQL, MongoDB, Prometheus, and Grafana in one Docker Compose network.

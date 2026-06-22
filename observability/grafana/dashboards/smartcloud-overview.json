@@ -1,0 +1,42 @@
+{
+  "id": null,
+  "title": "SmartCloud ServiceOps Overview",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "HTTP Requests",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+      "targets": [
+        { "expr": "sum(http_server_requests_seconds_count{application=\"smartcloud-serviceops\"})", "refId": "A" }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Agent Routes",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+      "targets": [
+        { "expr": "sum(smartcloud_agent_route_total)", "refId": "A" }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Cache Hits",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+      "targets": [
+        { "expr": "sum(smartcloud_cache_total{result=\"hit\"})", "refId": "A" }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "MCP/A2A Calls",
+      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 8 },
+      "targets": [
+        { "expr": "sum by(protocol,method) (rate(smartcloud_protocol_calls_total[1m]))", "refId": "A" }
+      ]
+    }
+  ]
+}
